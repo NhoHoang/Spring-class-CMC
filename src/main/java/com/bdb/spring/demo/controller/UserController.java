@@ -2,12 +2,15 @@ package com.bdb.spring.demo.controller;
 
 import com.bdb.spring.demo.dto.UserCreateDto;
 import com.bdb.spring.demo.dto.UserUpdateDto;
+import com.bdb.spring.demo.page.ChunkRequest;
 import com.bdb.spring.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.awt.print.Pageable;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -31,6 +34,12 @@ public class UserController {
     public ResponseEntity<?> getAll() {
         return ResponseEntity.ok(userService.getAll());
     }
+    @GetMapping("/hihi")
+    public ResponseEntity<?> getAll2() {
+        Pageable pageable = (Pageable) new ChunkRequest(0, 2);
+        return ResponseEntity.ok(userService.getAll2(pageable));
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable("id") Long id) {

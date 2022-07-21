@@ -8,8 +8,11 @@ import com.bdb.spring.demo.mapper.UserMapper;
 import com.bdb.spring.demo.repository.UserRepository;
 import com.bdb.spring.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +51,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<UserDto> getAll2(Pageable pageable) {
+       List<User> users = userRepository.findAll();
+        Page<User> pages = new PageImpl<User>(users);
+        return pages.map(userMapper::toDto);
+
     }
 
     private User user(UserUpdateDto userUpdateDto, User user) {

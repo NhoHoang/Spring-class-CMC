@@ -15,4 +15,5 @@ public class UserDto {
     private Gender gender;
     private String transientField;
     private List<Permission> permissions;
+    private IdentityDto identityDto;
 }
