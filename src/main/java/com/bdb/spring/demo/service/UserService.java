@@ -3,6 +3,7 @@ package com.bdb.spring.demo.service;
 import com.bdb.spring.demo.dto.UserCreateDto;
 import com.bdb.spring.demo.dto.UserDto;
 import com.bdb.spring.demo.dto.UserUpdateDto;
+import com.bdb.spring.demo.entity.User;
 
 import java.util.List;
 

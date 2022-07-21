@@ -1,7 +1,9 @@
 package com.bdb.spring.demo.controller;
 
 import com.bdb.spring.demo.dto.UserCreateDto;
+import com.bdb.spring.demo.dto.UserDto;
 import com.bdb.spring.demo.dto.UserUpdateDto;
+import com.bdb.spring.demo.entity.User;
 import com.bdb.spring.demo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -58,4 +60,5 @@ public class UserController {
         userService.persistDemo();
         return ResponseEntity.ok("Check console");
     }
+
 }

@@ -38,8 +38,11 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Identity identity;
 
-    public User(String name, Gender gender) {
+    public User(String name, Gender gender, List<Permission> permissions) {
         this.name = name;
         this.gender = gender;
+        this.permissions = permissions;
     }
+
+
 }

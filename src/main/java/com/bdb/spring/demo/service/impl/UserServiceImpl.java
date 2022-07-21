@@ -1,6 +1,8 @@
 package com.bdb.spring.demo.service.impl;
 
+import com.bdb.spring.demo.config.HibernateUtils;
 import com.bdb.spring.demo.constant.Gender;
+import com.bdb.spring.demo.constant.Permission;
 import com.bdb.spring.demo.dto.UserCreateDto;
 import com.bdb.spring.demo.dto.UserDto;
 import com.bdb.spring.demo.dto.UserUpdateDto;
@@ -9,19 +11,23 @@ import com.bdb.spring.demo.entity.User;
 import com.bdb.spring.demo.mapper.UserMapper;
 import com.bdb.spring.demo.repository.UserRepository;
 import com.bdb.spring.demo.service.UserService;
-import com.mysql.cj.Session;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.security.auth.login.Configuration;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
+//    @PersistenceContext
+//    private EntityManager entityManager;
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -57,29 +63,32 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void persistDemo() {
+        Session session = HibernateUtils.getInstance().openSession();
 
-        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-        entityManager.getTransaction().begin();
+        List<Permission> permissions = new ArrayList<>();
+        Permission permission = Permission.of("r");
+        permissions.add(permission);
         // create 2 new entity
-        User user = new User("Ngyuen Van A", Gender.of("m"));
-        Identity identity = new Identity("011115646546");
+        User user = new User("Ngyuen Van A11", Gender.of("m"),permissions );
+        Identity identity = new Identity("0111151646546");
         // set
         identity.setUser(user);
         user.setIdentity(identity);
+        session.persist(user);
+//        userRepository.save(user);
+//        session.flush();
+        session.clear();
+
         //persist
-        entityManager.persist(user);
-        //commit
-        entityManager.getTransaction().commit();
+//        session.getTransaction().commit();
+        session.close();
+        HibernateUtils.getInstance().closeFactory();
         System.out.println("-------------------");
         System.out.println(user);
         System.out.println(identity);
-
-        entityManager.close();
-
     }
-
 
     private User user(UserUpdateDto userUpdateDto, User user) {
         user.setName(userUpdateDto.getName());

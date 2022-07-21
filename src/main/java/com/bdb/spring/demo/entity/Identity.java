@@ -19,11 +19,13 @@ public class Identity {
     @Column(name = "id_number")
     private String idNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne( orphanRemoval = true,cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
     public Identity(String idNumber) {
         this.idNumber = idNumber;
     }
+
+
 }
