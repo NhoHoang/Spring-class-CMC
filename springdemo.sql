@@ -1,1 +1,2 @@
-create database springdemo;
+create database springdemo; 
+;

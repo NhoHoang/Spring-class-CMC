@@ -4,7 +4,9 @@ import com.bdb.spring.demo.constant.Gender;
 import com.bdb.spring.demo.constant.Permission;
 import com.bdb.spring.demo.converter.GenderEnumConverter;
 import com.bdb.spring.demo.converter.PermissionEnumConverter;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @Entity(name = "user")
 @Getter
 @Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +37,9 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Identity identity;
+
+    public User(String name, Gender gender) {
+        this.name = name;
+        this.gender = gender;
+    }
 }

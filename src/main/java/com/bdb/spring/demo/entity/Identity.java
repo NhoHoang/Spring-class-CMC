@@ -1,6 +1,7 @@
 package com.bdb.spring.demo.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class Identity {
 
     @Id
@@ -20,4 +22,8 @@ public class Identity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
+
+    public Identity(String idNumber) {
+        this.idNumber = idNumber;
+    }
 }
