@@ -19,7 +19,7 @@ public class Identity {
     @Column(name = "id_number")
     private String idNumber;
 
-    @OneToOne( orphanRemoval = true,cascade = {CascadeType.REMOVE})
+    @OneToOne( orphanRemoval = true,cascade = {CascadeType.ALL})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
