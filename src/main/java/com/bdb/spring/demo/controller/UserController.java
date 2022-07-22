@@ -61,4 +61,10 @@ public class UserController {
         return ResponseEntity.ok("Check console");
     }
 
+    @GetMapping("/remove/{id}")
+    public ResponseEntity<?> removeDemo(@PathVariable Long id) {
+        userService.removeDemo(id);
+        return ResponseEntity.ok("Check console");
+    }
+
 }

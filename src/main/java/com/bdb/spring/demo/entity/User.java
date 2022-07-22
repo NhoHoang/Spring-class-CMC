@@ -35,7 +35,7 @@ public class User {
     @Convert(converter = PermissionEnumConverter.class)
     private List<Permission> permissions;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Identity identity;
 
     public User(String name, Gender gender, List<Permission> permissions) {

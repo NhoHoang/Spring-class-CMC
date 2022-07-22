@@ -19,6 +19,8 @@ public interface UserService {
     void delete(Long id);
 
     void persistDemo();
+
+    void removeDemo(Long id);
 }
 
 //controllers work with response entity

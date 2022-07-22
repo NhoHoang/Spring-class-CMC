@@ -76,18 +76,17 @@ public class UserServiceImpl implements UserService {
         // set
         identity.setUser(user);
         user.setIdentity(identity);
-        session.persist(user);
-//        userRepository.save(user);
-//        session.flush();
-        session.clear();
-
-        //persist
-//        session.getTransaction().commit();
+        userRepository.save(user);
         session.close();
         HibernateUtils.getInstance().closeFactory();
         System.out.println("-------------------");
-        System.out.println(user);
-        System.out.println(identity);
+
+    }
+
+    @Override
+    @Transactional
+    public void removeDemo(Long id) {
+        userRepository.deleteById(id);
     }
 
     private User user(UserUpdateDto userUpdateDto, User user) {
